@@ -1,0 +1,14 @@
+#-*- coding:utf-8 -*-
+
+import httplib,urllib
+
+class vdisk_client():
+
+    def __init__(self):
+        self.cookie = "saeut=183.128.213.52.1359297897894424; __utma=15428400.1714739804.1359297898.1359297898.1359297898.1; __utmb=15428400.1.10.1359297898; __utmc=15428400; __utmz=15428400.1359297898.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _s_tentry=vdisk.weibo.com; Apache=2585134152323.008.1359297898397; ULV=1359297898403:23:1:1:2585134152323.008.1359297898397:1352543951857; SINAGLOBAL=2585134152323.008.1359297898397; SSOLoginState=1359298050; SUE=es%3Daa03d712fc0e8b484ae007bc5551c412%26ev%3Dv1%26es2%3D957694ec323455743ef0a5bd3c6163c7%26rs0%3DsfMWySpYwzpxeqdYk3q4W94yakOYGgzSwu2MIATglqpUIZG9bcF%252Bn5MKrkdMsnm0DmK3yf0o%252FcE%252FhZVLSCUX0yYWkj0P6HzQK5g3Oh0AbMFJUSYfcCGtOLk0Xy3lgOvuetqsfYQnLiD%252FwciG7Pd3r4hXgBcedIX3m80b0SSjz%252BU%253D%26rv%3D0; SUP=cv%3D1%26bt%3D1359298079%26et%3D1359384479%26d%3Dc909%26i%3D296e%26us%3D1%26vf%3D0%26vt%3D0%26ac%3D2%26uid%3D2807797220%26user%3Dvmonit%2540163.com%26ag%3D4%26name%3Dvmonit%2540163.com%26nick%3D%25E6%2588%2591%25E5%25AE%25B6%25E7%259A%2584%25E9%2582%25A3%25E4%25B8%25AA%25E6%2591%2584%25E5%2583%258F%25E5%25A4%25B4%26fmp%3D%26lcp%3D; SUS=SID-2807797220-1359298079-JA-n4t3p-4d74a25c53c3b3485595fde8377e95fc; ALF=1361890050; v=5; CNZZDATA3212592=cnzz_eid=32588216-1359297899-&ntime=1359297899&cnzz_a=1&retime=1359298078474&sin=&ltime=1359298078474&rtime=0; __utma=18712062.540574324.1359298079.1359298079.1359298079.1; __utmb=18712062.1.10.1359298079; __utmc=18712062; __utmz=18712062.1359298079.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); UOR=,weibo.com,#ishare.iask.sina.com.cn; WBStore=9a5f4a8352d9b9c1|"
+
+        self.down_url = "/file/info?fid="
+        self.connecter = httplib.HTTPConnection("vdisk.weibo.com")
+
+    def get_download_url(self):
+        pass
