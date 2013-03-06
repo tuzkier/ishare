@@ -34,8 +34,8 @@ class ishare_client():
 
 
     def download_file(self, url):
-        filename = url[url.find("fn=")]
-        urllib.urlretrieve(url,"E:/test.pdf")
+        import ishare_download
+        ishare_download.save2disk(url)
 
     def __get_ishare_download_url(self):
         pass

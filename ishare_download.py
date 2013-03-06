@@ -1,4 +1,5 @@
-import httplib,urllib
+import httplib,urllib,urllib2
+import os
 
 def run():
     conn = httplib.HTTPConnection("ishare.iask.sina.com.cn")
@@ -25,23 +26,33 @@ def login():
     res = conn.getresponse()
     print res.read()
 
+def get_random_file_name():
+    return "random"
 
-def save2disk():
-    conn = httplib.HTTPConnection("ishare.iask.sina.com.cn")
-    cookies = "UOR=www.google.com.hk,blog,; vjuids=cd3a11d25.137a65e6a3a.0.635c0bf5; ALLYESID4=0012060112471535134536; mvsign=v%3DN%28ST%2A%23R%60I2A%5E6%5BV%40iBu5; FSINAGLOBAL=00000025.b4215d8f.4fc8267b.f3fa0ff6; SINAGLOBAL=00000043.2eb3db0.50889ec1.8fa3fcd3; SINA_NEWS_CUSTOMIZE_city=%u676D%u5DDE; aesurveynum480=3; aesurveynum487=2; lxlrtst=1354869250_o; STAT_AB_vdisk=vdisk#A#e6029f57096daef66a721ccbe34805c2#1; U_TRS2=00000011.6d0c4961.5100c735.5ff591c7; Apache=00000016.34f52860.5100c74f.6691b7ad; SessionID=b20q1i381ct4qok19h3q5kolq1; ; PHPSESSID=c74c9fece81e0cd95746c3edbaf37ac2; usrmd=usrmdins169; ishare_ifdown_35590288=1; cookie_download_tag=415621793; ishare_ifdown_35590273=1; ishare_ifdown_35590189=1; ishare_ifdown_35590182=1; ishare_ifdown_35590960=1; ishare_ifdown_35590600=1; ULV=1359083988393:106:7:3:00000016.34f52860.5100c74f.6691b7ad:1358819871847; vjlast=1359083995; ArtiFSize=14; lxlrttp=1359068396; U_TRS1=00000028.81da2a3f.51010d11.45737080; ULOGIN_IMG=gz-7f458d6642708898f3f8687b8ba8176f8703; SUS=SID-1688520453-1359105078-GZ-f7bth-fd1e3607fee57a9c5d26337e6414de2e; ALF=1361697078; SUR=uid%3D1688520453%26user%3Dwhb4d12%2540gmail.com%26nick%3Dtuzkier%26email%3D%26dob%3D1989-7-20%26ag%3D4%26sex%3D1%26ssl%3D0; SUE=es%3D3247fdd0db5aeb8d56b6b1336dff90d1%26ev%3Dv1%26es2%3D4c347b130b4c8c133883f9ed2cd7b8f4%26rs0%3DshIcUdHB2X3e2wrf0%252BgToLLdVoW1bqVsfcYWbg7lWOE1PoOnL6Tjzp0EQECWxYycoICJUgCQkfAGtzny2efS9CNGK1boQIcEhiwlMzIuOfs%252B1Wvu4w26dQdS0Is3Ls1Fj5gu73lvAWIv1%252BlNj5uNvTBJjPpDSYbmvvVX6brwH84%253D%26rv%3D0; SUP=cv%3D1%26bt%3D1359105078%26et%3D1359191482%26d%3D40c3%26i%3Dbac6%26us%3D1%26vf%3D0%26vt%3D0%26ac%3D0%26lt%3D1%26uid%3D1688520453%26user%3Dwhb4d12%2540gmail.com%26ag%3D4%26name%3Dwhb4d12%2540gmail.com%26nick%3Dtuzkier%26sex%3D1%26ps%3D0%26email%3D%26dob%3D1989-7-20%26ln%3D%26os%3D%26fmp%3D%26lcp%3D2011-06-30%252023%253A55%253A24"
+def get_file_name(url):
+    file_name_index = url.find("fn=")
+    if file_name_index == -1:
+        return get_random_file_name()
+    return url[file_name_index + 3:]
 
-    param = urllib.urlencode({'fileid': '35595908'})
-    header = {"Cookie":cookies,"Referer":"http://ishare.iask.sina.com.cn/f/35596299.html","X-Requested-With":"XMLHttpRequest","Content-Length":"15","Connection":"keep-alive","Content-Type":"application/x-www-form-urlencoded","Accept":"*/*","        Accept-Charset/":"GBK,utf-8;q=0.7,*;q=0.3","Accept-Encoding":"gzip,deflate,sdch","Accept-Language":"zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.4"}
-    conn.request("POST","/vdisk/savevdisk.php?action=save",param, headers=header)
-    res = conn.getresponse()
-    print res.read()
+def save2disk(url, local_file_name = None):
 
-    cookies2 = "lzstat_uv=5939562481280418154|2893156; saeut=202.91.247.37.1343355140609251; CNZZDATA3212592=cnzz_eid=46435862-1345782021-http%253A%252F%252Fweibo.com%252Ftuzkier&ntime=1346044918&cnzz_a=0&retime=1346044924509&sin=http%253A%252F%252Fweibo.com%252Ftuzkier&ltime=1346044924509&rtime=1; __utma=15428400.1429628126.1357615037.1357615037.1357615037.1; __utmz=15428400.1357615037.1.1.utmcsr=blog.sina.com.cn|utmccn=(referral)|utmcmd=referral|utmcct=/s/profile_1534596801.html; _s_tentry=login.sina.com.cn; Apache=95913929399.10292.1359005512055; ULV=1359005512063:109:25:6:95913929399.10292.1359005512055:1358991715905; SINAGLOBAL=95913929399.10292.1359005512055; un=whb4d12@gmail.com; WBStore=9a5f4a8352d9b9c1|; SSOLoginState=1359105078; SUE=es%3D9d83229b195859910c43548b17e12442%26ev%3Dv1%26es2%3D77779e2c3be7ceb28724412a4c56056f%26rs0%3DiZd3YukaROmOBktEeh%252FGQgvdsbWx5H4ol56XPiGBYzauFXD0424LqeQDJ5Ub7IE7MPSIDqjG2zHhVg1JF9RQN1DO4b22PoQPHhw%252FvdPFKR6%252B31e8GujS4BCZrT2kmjFl2BB9GpzER8%252FvzHGZAK8q0viYmwhujkHCqif1Rci7ofU%253D%26rv%3D0; SUP=cv%3D1%26bt%3D1359105084%26et%3D1359191484%26d%3Dc909%26i%3D06c1%26us%3D1%26vf%3D0%26vt%3D0%26ac%3D2%26uid%3D1688520453%26user%3Dwhb4d12%2540gmail.com%26ag%3D4%26name%3Dwhb4d12%2540gmail.com%26nick%3Dtuzkier%26fmp%3D%26lcp%3D2011-06-30%252023%253A55%253A24; SUS=SID-1688520453-1359105084-JA-xiz9j-d3216c014a92edd958f3323315d0bac6; ALF=1361697078; v=5; wvr=5; __utma=18712062.1377118063.1359105049.1359105049.1359105049.1; __utmb=18712062.5.10.1359105049; __utmc=18712062; __utmz=18712062.1359105049.1.1.utmcsr=ishare.iask.sina.com.cn|utmccn=(referral)|utmcmd=referral|utmcct=/f/35596299.html; UOR=weibo.com,weibo.com,#ishare.iask.sina.com.cn"
-    conn2 = httplib.HTTPConnection("vdisk.weibo.com")
-    header = {"Cookie":cookies2,"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
-    conn2.request("GET","/file/info?fid=412045498",headers=header)
-    res2 = conn2.getresponse()
-    print res2.read()
+    file_name = ""
+    req = urllib2.Request(url)
+    r = urllib2.urlopen(req)
+    if local_file_name == None and r.info().has_key('Content-Disposition'):
+        # If the response has Content-Disposition, we take file name from it
+        localName = r.info()['Content-Disposition'].split('filename=')[1]
+        if localName[0] == '"' or localName[0] == "'":
+            file_name = localName[1:-1]
+    elif local_file_name == None:
+        file_name = get_file_name(url)
+    if not os.path.exists("downloads"):
+        os.mkdir("downloads")
+    f = open("downloads/%s" %(file_name.decode("utf-8").encode("gb2312")), "wb")
+    f.write(r.read())
+    f.close()
+    print r
 
 
 if __name__ == "__main__":
