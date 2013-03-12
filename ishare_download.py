@@ -17,14 +17,6 @@ def run():
             print r[1]
     conn.close()
 
-def login():
-    conn = httplib.HTTPConnection("ishare.iask.sina.com.cn")
-
-    cookies = "SINAGLOBAL=00000025.61e02c4e.4f7e85ab.8ca527d1; U_TRS1=00000025.709640c2.5100fe00.5edf796b; U_TRS2=00000025.e4b14ffb.5101f161.a452b429; UOR=login.sina.com.cn,ishare.iask.sina.com.cn,; Apache=3945132980588.8237.1359081827903; FSINAGLOBAL=00000025.61e02c4e.4f7e85ab.8ca527d1; ULV=1359081831002:1:1:1:3945132980588.8237.1359081827903:"
-    headers = {"Cookie":cookies,"Referer":"http://ishare.iask.sina.com.cn/login/login_div.php?w=400&h=230&url=%2Fishare%2Fbrowse_file.php%3Ffileid%3D35594553&msg=%B8%C3%D7%CA%C1%CF%D0%E8%D2%AA%B5%C7%C2%BC%BA%F3%D6%A7%B8%B6+2+%B7%D6%3Ca+href%3D%22%2Fhelp%2Fjfgz.html%22+target%3D%22_blank%22%3E%BB%FD%B7%D6%3C%2Fa%3E%B2%C5%C4%DC%CF%C2%D4%D8"}
-    conn.request("GET","/login/ajaxlogin.php?framelogin=1&callback=parent.sinaSSOController.feedBackUrlCallBack&sudaref=ishare.iask.sina.com.cn&retcode=101&reason=%B5%C7%C2%BC%C3%FB%BB%F2%C3%DC%C2%EB%B4%ED%CE%F3",headers=headers)
-    res = conn.getresponse()
-    print res.read()
 
 def get_random_file_name():
     return "random"
